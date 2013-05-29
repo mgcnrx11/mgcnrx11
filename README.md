@@ -1,4 +1,4 @@
-mgcnrx11
+blog.jianyu.im
 ========
 
 My Blog Site
