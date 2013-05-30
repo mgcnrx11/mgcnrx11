@@ -42,9 +42,11 @@ tags: [git, scm]
     git reset -- .      # 从暂存区恢复到工作文件
     git reset --soft    # 本地目录不会变化，只是暂存区发生变化
     git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改，暂存区和工作目录都发生变化
-    git reset <refs>    # reverts changes by moving a branch reference backwards in time to an older commit.
+    git reset <refs>    # reverts changes by moving a branch reference backwards in time
+                        # to an older commit.
                         # In this sense you can think of it as "rewriting history;"
-                        # git reset will move a branch backwards as if the commit had never been made in the first place.
+                        # git reset will move a branch backwards as if
+                        # the commit had never been made in the first place.
                         # 注意：重写log的历史信息对remote端的分支不起作用。这时可以用revert
 
     git ci <file>
@@ -54,7 +56,8 @@ tags: [git, scm]
     git ci --amend      # 修改最后一次提交记录
 
     git revert <$id>    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
-    git revert <refs>   # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象，这些变化可以push到remote端并完整记录下来
+    git revert <refs>   # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
+                        # 这些变化可以push到remote端并完整记录下来
     git revert HEAD     # 恢复最后一次提交的状态，相当于undo
     
     git tag <new_tag>   # 在当前分支创建一个新tag
@@ -116,15 +119,20 @@ Mac上可以使用tig代替diff和log，`brew install tig`
 
     git merge <branch>               # 将branch分支合并到当前分支
     git merge origin/master --no-ff  # 不要Fast-Foward合并，这样可以生成merge提交
-    git merge --squash <branch>      # 其效果相当于将<branch>分支上的多个commit合并成一个，放在当前分支上，原来的commit历史则没有拿过来
+    git merge --squash <branch>      # 其效果相当于将<branch>分支上的多个commit合并成一个
+                                     # 放在当前分支上，原来的commit历史则没有拿过来
 	git rebase <branch>              # 将当前分支reabse到<branch>，rebase后在<branch>下游会有commit
     git rebase master <branch>       # 将master rebase到branch，相当于：
-                                     # git co <branch> && git rebase master && git co master && git merge <branch>
-    git rebase -i <branch>           # Interactive (the -i) rebasing allows you to choose which commits you want to keep
+                                     # git co <branch> && git rebase master && git co master
+                                     # && git merge <branch>
+    git rebase -i <branch>           # Interactive (the -i) rebasing allows you to choose
+                                     # which commits you want to keep
                                      # or discard. It also allows you to reorder commits.
                                      # 也可以让你修改commit的提交信息
-    git rebase -i <branch> <refs>    # 选择从HEAD到<refs>之间的commit进行操作，可以合并当前分支的多个commit
-    git cherry-pick <refs>           # Cherry-picking allows you to pick individual commits and plop them down on top of HEAD. 
+    git rebase -i <branch> <refs>    # 选择从HEAD到<refs>之间的commit进行操作
+                                     # 可以合并当前分支的多个commit
+    git cherry-pick <refs>           # Cherry-picking allows you to pick individual commits
+                                     # and plop them down on top of HEAD. 
                                      # 把一个任意的commit选出来然后附加到HEAD后面
 
 ## Git补丁管理（方便在多台机器上开发同步时用）
@@ -143,8 +151,10 @@ Mac上可以使用tig代替diff和log，`brew install tig`
     git pull --no-ff                 # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
     git fetch                        # fetch操作不会主动在remotes建立指针
     git fetch origin                 # 抓取远程仓库更新
-    git fetch origin branch1:branch2 # 首先执行上面的fetch操作，使用远程branch1分支在本地创建branch2(但不会切换到该分支)，
-                                     # 如果本地不存在branch2分支, 则会自动创建一个新的branch2分支，如果本地存在branch2分支,
+    git fetch origin branch1:branch2 # 首先执行上面的fetch操作，使用远程branch1分支在本地创建branch2
+                                     # (但不会切换到该分支)，
+                                     # 如果本地不存在branch2分支, 则会自动创建一个新的branch2分支 
+                                     # 如果本地存在branch2分支,
                                      # 并且是`fast forward', 则自动合并两个分支, 否则, 会阻止以上操作
     git merge origin/master          # 将远程主分支合并到本地当前分支
     git co --track origin/branch     # 跟踪某个远程分支创建相应的本地分支
@@ -161,8 +171,8 @@ Mac上可以使用tig代替diff和log，`brew install tig`
 
     git remote -v                    # 查看远程服务器地址和仓库名称
     git remote show origin           # 查看远程服务器仓库状态，也可查询分支跟踪状态
-    git remote add origin git@github:robbin/robbin_site.git         # 添加远程仓库地址
-    git remote set-url origin git@github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址)
+    git remote add origin git@github.com:mgcnrx11/mgcnrx11.github.io.git      # 添加远程仓库地址
+    git remote set-url origin git@github.com:mgcnrx11/mgcnrx11.github.io.git  # 设置远程仓库地址
     git remote rm <repository>       # 删除远程仓库
 
 ### 创建远程仓库
