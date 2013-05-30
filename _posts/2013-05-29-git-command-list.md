@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git Command List"
+title: "Git常用命令"
 description: ""
 category: 
 tags: [git, scm]
@@ -8,17 +8,17 @@ tags: [git, scm]
 {% include JB/setup %}
 
 ## Git配置
-    git config --global user.name "robbin"   
-    git config --global user.email "fankai@gmail.com"
+    git config --global user.name "Jian Yu"   
+    git config --global user.email "mgcnrx11@hotmail.com"
     git config --global color.ui true
     git config --global alias.co checkout
     git config --global alias.ci commit
     git config --global alias.st status
     git config --global alias.br branch
-    git config --global core.editor "mate -w"    # 设置Editor使用textmate
-    git config -l  # 列举所有配置
+    git config --global core.editor "subl -n -w"   # 设置Editor使用Sublime 2
+    git config -l                                  # 列举所有配置
 
-用户的git配置文件`~/.gitconfig`  
+用户的git全局配置文件`~/.gitconfig`  
 
 ## Git常用命令
 
@@ -42,7 +42,10 @@ tags: [git, scm]
     git reset -- .      # 从暂存区恢复到工作文件
     git reset --soft    # 本地目录不会变化，只是暂存区发生变化
     git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改，暂存区和工作目录都发生变化
-    git reset <refs>    # reverts changes by moving a branch reference backwards in time to an older commit. In this sense you can think of it as "rewriting history;" git reset will move a branch backwards as if the commit had never been made in the first place.注意：重写log的历史信息对remote端的分支不起作用。这时可以用revert
+    git reset <refs>    # reverts changes by moving a branch reference backwards in time to an older commit.
+                        # In this sense you can think of it as "rewriting history;"
+                        # git reset will move a branch backwards as if the commit had never been made in the first place.
+                        # 注意：重写log的历史信息对remote端的分支不起作用。这时可以用revert
 
     git ci <file>
     git ci .
@@ -58,13 +61,13 @@ tags: [git, scm]
 
 ### 查看文件diff
 
-    git diff <file>               # 比较当前文件和暂存区文件差异
+    git diff <file>                 # 比较当前文件和暂存区文件差异
     git diff
-    git diff <$id1> <$id2>        # 比较两次提交之间的差异
-    git diff <branch1>..<branch2> # 在两个分支之间比较 
-    git diff --staged             # 比较暂存区和版本库差异
-    git diff --cached             # 比较暂存区和版本库差异
-    git diff --stat               # 仅仅比较统计信息
+    git diff <$id1> <$id2>          # 比较两次提交之间的差异
+    git diff <branch1>..<branch2>   # 在两个分支之间比较 
+    git diff --staged               # 比较暂存区和版本库差异
+    git diff --cached               # 比较暂存区和版本库差异
+    git diff --stat                 # 仅仅比较统计信息
 
 ### 查看提交记录
 
@@ -78,9 +81,9 @@ tags: [git, scm]
 
 ### 移动HEAD
 
-	git co <refs>^       # HEAD向前移动一个commit
-	git co <refs>^<num>  # 选择第<num>个父节点
-	git co <refs>~<num>  # HEAD向前移动<num>个commit
+	git co <refs>^            # HEAD向前移动一个commit
+	git co <refs>^<num>       # 选择第<num>个父节点
+	git co <refs>~<num>       # HEAD向前移动<num>个commit
 	git co <refs>^<num>~<num> # 可以混合试用^和~操作符
 
 ### tig
@@ -98,16 +101,16 @@ Mac上可以使用tig代替diff和log，`brew install tig`
     git br --no-merged  # 查看尚未被合并到当前分支的分支
     git br -avv         # 查看所有分支详细信息，包括分支跟踪情况
     
-    git co <branch>     # 切换到某个分支
-    git co -b <new_branch> # 创建新的分支，并且切换过去
+    git co <branch>                  # 切换到某个分支
+    git co -b <new_branch>           # 创建新的分支，并且切换过去
     git co -b <new_branch> <branch>  # 基于branch创建新的new_branch
     
-    git co $id          # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
+    git co $id                  # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
     git co $id -b <new_branch>  # 把某次历史提交记录checkout出来，创建成一个分支
 
-    git br -d <branch>  # 删除某个分支
-    git br -D <branch>  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
-    git br -f <branch> <refs> # 直接重新把分支指向某个commit
+    git br -d <branch>         # 删除某个分支
+    git br -D <branch>         # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+    git br -f <branch> <refs>  # 直接重新把分支指向某个commit
     
 ### 分支合并和rebase
 
@@ -116,10 +119,13 @@ Mac上可以使用tig代替diff和log，`brew install tig`
     git merge --squash <branch>      # 其效果相当于将<branch>分支上的多个commit合并成一个，放在当前分支上，原来的commit历史则没有拿过来
 	git rebase <branch>              # 将当前分支reabse到<branch>，rebase后在<branch>下游会有commit
     git rebase master <branch>       # 将master rebase到branch，相当于：
-    git co <branch> && git rebase master && git co master && git merge <branch>
-    git rebase -i <branch>           # Interactive (the -i) rebasing allows you to choose which commits you want to keep or discard. It also allows you to reorder commits.也可以让你修改commit的提交信息
+                                     # git co <branch> && git rebase master && git co master && git merge <branch>
+    git rebase -i <branch>           # Interactive (the -i) rebasing allows you to choose which commits you want to keep
+                                     # or discard. It also allows you to reorder commits.
+                                     # 也可以让你修改commit的提交信息
     git rebase -i <branch> <refs>    # 选择从HEAD到<refs>之间的commit进行操作，可以合并当前分支的多个commit
-    git cherry-pick <refs>           # Cherry-picking allows you to pick individual commits and plop them down on top of HEAD. 把一个任意的commit选出来然后附加到HEAD后面
+    git cherry-pick <refs>           # Cherry-picking allows you to pick individual commits and plop them down on top of HEAD. 
+                                     # 把一个任意的commit选出来然后附加到HEAD后面
 
 ## Git补丁管理（方便在多台机器上开发同步时用）
     git diff > ../sync.patch         # 生成补丁
@@ -137,15 +143,17 @@ Mac上可以使用tig代替diff和log，`brew install tig`
     git pull --no-ff                 # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
     git fetch                        # fetch操作不会主动在remotes建立指针
     git fetch origin                 # 抓取远程仓库更新
-    git fetch origin branch1:branch2 # 首先执行上面的fetch操作，使用远程branch1分支在本地创建branch2(但不会切换到该分支)，如果本地不存在branch2分支, 则会自动创建一个新的branch2分支，如果本地存在branch2分支, 并且是`fast forward', 则自动合并两个分支, 否则, 会阻止以上操作
+    git fetch origin branch1:branch2 # 首先执行上面的fetch操作，使用远程branch1分支在本地创建branch2(但不会切换到该分支)，
+                                     # 如果本地不存在branch2分支, 则会自动创建一个新的branch2分支，如果本地存在branch2分支,
+                                     # 并且是`fast forward', 则自动合并两个分支, 否则, 会阻止以上操作
     git merge origin/master          # 将远程主分支合并到本地当前分支
     git co --track origin/branch     # 跟踪某个远程分支创建相应的本地分支
     git co -b <local_branch> origin/<remote_branch>  # 基于远程分支创建本地分支，功能同上
 
-    git push                         # push所有分支
-    git push origin master           # 将本地主分支推到远程主分支
-    git push -u origin master        # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
-    git push origin <local_branch>   # 创建远程分支， origin是远程仓库名
+    git push                          # push所有分支
+    git push origin master            # 将本地主分支推到远程主分支
+    git push -u origin master         # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
+    git push origin <local_branch>    # 创建远程分支，origin是远程仓库名
     git push origin <local_branch>:<remote_branch>  # 创建远程分支
     git push origin :<remote_branch>  #先删除本地分支(git br -d <branch>)，然后再push删除远程分支
 
