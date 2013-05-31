@@ -16,6 +16,8 @@ tags: [git, scm]
     git config --global alias.st status
     git config --global alias.br branch
     git config --global core.editor "subl -n -w"   # 设置Editor使用Sublime 2
+	ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+	                                               # 在Mac OS添加Sublime 2的命令行启用功能
     git config -l                                  # 列举所有配置
 
 用户的git全局配置文件`~/.gitconfig`  
