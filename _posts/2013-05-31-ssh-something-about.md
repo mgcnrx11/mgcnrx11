@@ -48,6 +48,7 @@ Error: Permission denied (publickey)
 ### Github
 
 #### Windows下用TortoiseGit
+使用Putty产生PrivateKey的ppk格式
 
 ### 远程连接Linux主机
 
